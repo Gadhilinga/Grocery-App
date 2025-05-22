@@ -37,7 +37,7 @@ class OnBoardPage extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: Colors.grey,
-            title: 'Listen podcast and open your\nworld with this application',
+            title: 'Tell podcast and open your\nworld with this application',
           ),
           const SizedBox(height: 15),
           GestureDetector(
