@@ -7,7 +7,6 @@ import 'package:grocery/grocery_view/product.dart';
 import 'package:grocery/grocery_view/product_details_screen.dart';
 import 'package:grocery/grocery_view/product_items_display.dart';
 
-
 class HomeScreenGrocery extends StatelessWidget {
   HomeScreenGrocery({super.key});
   final GroceryController controller = Get.put(GroceryController());
@@ -63,39 +62,46 @@ class HomeScreenGrocery extends StatelessWidget {
             _searchField(),
             const SizedBox(height: 20),
             _categoryItems(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Obx(() => GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: controller.groceryList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ProductDetailScreen(
-                            product: controller.groceryList[index],
-                          ),
-                        ),
-                      );
-                    },
-                    child: ProductImetsDisplay(
-                      grocery: controller.groceryList[index],
-                    ),
-                  );
-                },
-              )),
-            ),
+            _gridListItems(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _gridListItems() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Obx(
+        () => GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            childAspectRatio: 0.75,
+          ),
+          itemCount: controller.groceryList.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (_) => ProductDetailScreen(
+                          product: controller.groceryList[index],
+                        ),
+                  ),
+                );
+              },
+              child: ProductImetsDisplay(
+                grocery: controller.groceryList[index],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -132,11 +138,10 @@ class HomeScreenGrocery extends StatelessWidget {
   Widget _categoryItems() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Obx(() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          groceryCategories.length,
-          (index) {
+      child: Obx(
+        () => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(groceryCategories.length, (index) {
             final category = groceryCategories[index];
             final isSelected = controller.selectedCategory.value == category;
             return GestureDetector(
@@ -149,21 +154,22 @@ class HomeScreenGrocery extends StatelessWidget {
                       title: category,
                       fontSize: isSelected ? 18 : 16,
                       color: isSelected ? textGreen : Colors.black26,
-                      fontWeight: isSelected ? FontWeight.w900 : FontWeight.w500,
+                      fontWeight:
+                          isSelected ? FontWeight.w900 : FontWeight.w500,
                     ),
                     isSelected
                         ? const CircleAvatar(
-                            radius: 4,
-                            backgroundColor: textGreen,
-                          )
+                          radius: 4,
+                          backgroundColor: textGreen,
+                        )
                         : const SizedBox(),
                   ],
                 ),
               ),
             );
-          },
+          }),
         ),
-      )),
+      ),
     );
   }
 }

@@ -16,7 +16,6 @@ class OnBoardPage extends StatelessWidget {
         children: [
           Container(
             color: onboardbackground,
-
             width: size.width,
             height: size.height * 0.6,
             child: Padding(
@@ -27,6 +26,7 @@ class OnBoardPage extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 15,),
           const CommonHeaderTitle(
             fontSize: 30,
             fontWeight: FontWeight.w800,
@@ -37,9 +37,9 @@ class OnBoardPage extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: Colors.grey,
-            title: 'Tell podcast and open your\nworld with this application',
+            title: 'Listen podcast and open your\nworld with this application',
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           GestureDetector(
             onTap: () {
               Navigator.push(
